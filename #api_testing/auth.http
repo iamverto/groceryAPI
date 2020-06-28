@@ -1,0 +1,84 @@
+POST http://127.0.0.1:8000/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "mobile": "9521752086"
+}
+
+### It will send OTP on given mobile number.[user will create if mobile number not registered]
+
+
+POST http://127.0.0.1:8000/api/v1/auth/verify-otp
+Content-Type: application/json
+
+{
+  "mobile": "9521752086",
+  "otp": "841898"
+}
+
+<> 2020-06-02T124915.200.json
+<> 2020-06-02T123938.500.txt
+<> 2020-06-02T123846.500.txt
+<> 2020-06-02T123832.500.txt
+<> 2020-06-02T123352.500.txt
+
+### It will verify OTP and send the user and token in response
+
+GET http://127.0.0.1:8000/api/v1/auth/user
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6Ijk1MjE3NTIwODYiLCJleHAiOjE1OTE3MjE4MTAsImVtYWlsIjoiaWFtdmVydG8zQGdtYWlsLmNvbSJ9.s_eQNkyotPvuhZ4sSR0JfuYA5gs6km4qDJSZwaBTYJg
+
+<> 2020-06-02T125231.200.json
+<> 2020-06-02T125223.401.json
+<> 2020-06-02T125203.401.json
+<> 2020-06-02T125150.401.json
+
+### It will authorize the user and return the user data in response
+
+GET http://127.0.0.1:8000/api/v1/auth/user/addresses
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6Ijk1MjE3NTIwODYiLCJleHAiOjE1OTE2ODk2OTgsImVtYWlsIjoiaWFtdmVydG8zQGdtYWlsLmNvbSJ9.7NtoYswcqs_YwBc4y_QTBKOQA4L0XgFPkhl4U0tELu8
+
+
+### return the list of addresses user has
+
+GET http://127.0.0.1:8000/api/v1/auth/user/address/1
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6Ijk1MjE3NTIwODYiLCJleHAiOjE1OTE2ODk2OTgsImVtYWlsIjoiaWFtdmVydG8zQGdtYWlsLmNvbSJ9.7NtoYswcqs_YwBc4y_QTBKOQA4L0XgFPkhl4U0tELu8
+
+### retrieve an adddress.
+
+
+POST http://127.0.0.1:8000/api/v1/auth/user/address/1/update
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6Ijk1MjE3NTIwODYiLCJleHAiOjE1OTE2ODk2OTgsImVtYWlsIjoiaWFtdmVydG8zQGdtYWlsLmNvbSJ9.7NtoYswcqs_YwBc4y_QTBKOQA4L0XgFPkhl4U0tELu8
+
+{
+  "city": "Kolkata",
+  "pincode": "444111"
+}
+
+### Update an address.
+
+
+GET http://127.0.0.1:8000/api/v1/auth/user/address/3/delete
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6Ijk1MjE3NTIwODYiLCJleHAiOjE1OTE2ODk2OTgsImVtYWlsIjoiaWFtdmVydG8zQGdtYWlsLmNvbSJ9.7NtoYswcqs_YwBc4y_QTBKOQA4L0XgFPkhl4U0tELu8
+
+### Delete an address.
+
+
+POST http://127.0.0.1:8000/api/v1/auth/user/addresses/create
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6Ijk1MjE3NTIwODYiLCJleHAiOjE1OTE2ODk2OTgsImVtYWlsIjoiaWFtdmVydG8zQGdtYWlsLmNvbSJ9.7NtoYswcqs_YwBc4y_QTBKOQA4L0XgFPkhl4U0tELu8
+
+{
+  "city": "New Delhi",
+  "pincode": "787222",
+  "street": "7-C-R"
+}
+
+### Create an adddress.
+
+
+

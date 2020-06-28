@@ -10,26 +10,41 @@ from category.models import Category
 class Product(models.Model):
     store = models.ForeignKey(Store, on_delete=models.PROTECT)
     title = models.CharField(max_length=200)
-    description = models.CharField(max_length=1000)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
-    num_items = models.IntegerField()
+    description = models.TextField()
+    price = models.DecimalField(max_digits=7, decimal_places=2)
+    categories = models.ManyToManyField(Category, related_name='products', blank=True)
     is_active = models.BooleanField(default=True)
 
     def save(self, *args, **kwargs):
         super(Product, self).save(*args, **kwargs)
 
+    def __str__(self):
+        return self.title
+
+    def get_store_name(self):
+        return self.store.name
+
+    def get_featured_image(self):
+        featured_image = self.images.filter(is_featured=True).first()
+        if featured_image:
+            return featured_image.pic.url
+        return None
+
+
+
+
 
 class ProductImage(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    pic = models.ImageField(upload_to='product_images/')
+    product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE)
+    pic = models.ImageField(upload_to='product/')
     is_featured = models.BooleanField(default=False)
+
 
 
 @receiver(post_delete, sender=ProductImage)
 def auto_delete_file_on_delete(sender, instance, **kwargs):
-    """ Deletes file from filesystem when corresponding `ProductImage` object is deleted. """
+    """ Deletes pic from filesystem when corresponding `ProductImage` object is deleted. """
 
-    if instance.file:
-        if os.path.isfile(instance.file.path):
-            os.remove(instance.file.path)
-
+    if instance.pic:
+        if os.path.isfile(instance.pic.path):
+            os.remove(instance.pic.path)

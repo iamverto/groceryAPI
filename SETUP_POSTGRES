@@ -1,0 +1,24 @@
+sudo apt-get install python3-pip python3-dev libpq-dev postgresql postgresql-contrib nginx
+
+sudo -u postgres psql
+
+# > CREATE DATABASE fusegrocer;
+    CREATE USER nix WITH PASSWORD 'lucky512@DB';
+    ALTER USER nix WITH PASSWORD 'lucky512@DB';
+    ALTER ROLE nix SET client_encoding TO 'utf8';
+    ALTER ROLE nix SET default_transaction_isolation TO 'read committed';
+    ALTER ROLE nix SET timezone TO 'Asia/Kolkata';
+
+    GRANT ALL PRIVILEGES ON DATABASE fusegrocer TO nix;
+    \q
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'doorpe',
+        'USER': 'doorpe',
+        'PASSWORD': 'luckyme7@DB',
+        'HOST': '',
+        'PORT': '',
+    }
+}

@@ -1,0 +1,9 @@
+POST http://127.0.0.1:8000/api/v1/orders/place-order
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6Ijk1MjE3NTIwODYiLCJleHAiOjE1OTE3MjE4MTAsImVtYWlsIjoiaWFtdmVydG8zQGdtYWlsLmNvbSJ9.s_eQNkyotPvuhZ4sSR0JfuYA5gs6km4qDJSZwaBTYJg
+
+{
+"address": 1
+}
+
+###

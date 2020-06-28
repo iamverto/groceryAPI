@@ -1,7 +1,6 @@
 from django.db import models
+from accounts.models import User
 
 
 class Driver(models.Model):
-    name = models.CharField(max_length=128)
-    mobile = models.CharField(max_length=12)
-    password = models.CharField(max_length=512)
+    user = models.OneToOneField(User, on_delete=models.PROTECT, blank=True, null=True)
