@@ -14,7 +14,7 @@ class ProductSerializer(ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ('id', 'title', 'description', 'categories', 'is_active', 'store', 'store_name', 'images')
+        fields = ('id', 'title', 'description','price', 'categories', 'is_active', 'store', 'store_name', 'images', 'num_sales')
 
     def get_store_name(self, product):
         return product.get_store_name()

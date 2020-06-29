@@ -14,6 +14,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=7, decimal_places=2)
     categories = models.ManyToManyField(Category, related_name='products', blank=True)
     is_active = models.BooleanField(default=True)
+    num_sales = models.IntegerField(default=0)
 
     def save(self, *args, **kwargs):
         super(Product, self).save(*args, **kwargs)

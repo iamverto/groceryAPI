@@ -10,11 +10,22 @@ class ProductListCreateAPIView(ListAPIView, ListModelMixin):
     serializer_class = ProductSerializer
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['title', 'description']
-    ordering_fields = ['price', 'is_active']
+    ordering_fields = ['price', 'is_active', 'num_sales']
 
     def get_queryset(self):
         """ Filters : STORE|CATEGORY """
         queryset = Product.objects.all()
+        category = self.request.query_params.get('category', None)
+        store = self.request.query_params.get('store', None)
+        is_active = self.request.query_params.get('is_active', None)
+
+        if category:
+            queryset = queryset.filter(categories__in=category)
+        if store:
+            queryset = queryset.filter(store=store)
+        if is_active:
+            queryset = queryset.filter(is_active=is_active)
+
         return queryset
 
     def get(self, request, *args, **kwargs):
