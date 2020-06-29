@@ -7,8 +7,8 @@
 - Filtering in stores [`search`, `category`, nearby]
 - Ordering in stores [`popularity`]✅
 
-- Filtering in orders [delivered, declined]
-- Ordering in orders[latest]
+- Filtering in orders [`delivered`, `declined`]
+- Ordering in orders[`latest`]
 - Tracking in order
 
 - remove cart items after successful order.

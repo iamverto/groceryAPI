@@ -13,6 +13,10 @@ class Order(models.Model):
     STATUS_CHOICES = (
         ('PENDING','Pending'),
         ('SUCCESS','Success'),
+        ('ACCEPTED','Accepted'),
+        ('SHIPPED','Shipped'),
+        ('DELIVERED','Delivered'),
+        ('DECLINED','Declined'),
     )
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     store = models.ForeignKey(Store, on_delete=models.PROTECT)

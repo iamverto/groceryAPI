@@ -14,6 +14,9 @@ class OrderList(ListAPIView, ListModelMixin):
     def get_queryset(self):
         """TODO ADMIN CAN SEE ALL, STORE/USER CAN SEE THEIRs"""
         queryset = Order.objects.filter(user=self.request.user)
+        status = self.request.query_params.get('status', None)
+        if status:
+            queryset = queryset.filter(status=status)
         return queryset
 
     def get(self, request, *args, **kwargs):
