@@ -47,6 +47,7 @@ class Cart(models.Model):
             order.save()
         orders = Order.objects.filter(user=self.user, status="PENDING")
 
+        items.delete()
         return orders.update(status="SUCCESS")
 
 class CartItem(models.Model):
