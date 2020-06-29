@@ -8,4 +8,4 @@ class StoreSerializer(ModelSerializer):
 
     class Meta:
         model = Store
-        fields = ('id', 'name', 'about', 'owner', 'icon', 'icon', 'banner', 'address')
+        fields = ('id', 'name', 'about', 'owner', 'icon', 'icon', 'banner', 'address','categories', 'num_sales')
