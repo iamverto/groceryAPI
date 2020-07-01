@@ -23,6 +23,7 @@ urlpatterns = [
     url('api/v1/', include('accounts.api.urls')),
     url('api/v1/', include('category.api.urls')),
     url('api/v1/', include('store.api.urls')),
+    url('api/v1/', include('driver.api.urls')),
     url('api/v1/', include('order.api.urls')),
 ]
 
