@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import user, login, verify_otp, get_address, list_addresses, update_address, add_address, delete_address
+from .views import user, login, verify_otp, get_address, list_addresses, update_address, add_address, delete_address, UserList
 urlpatterns = [
+    path('auth/users/', UserList.as_view()),
     path('auth/user/', user),
     path('auth/login/', login),
     path('auth/verify-otp/', verify_otp),

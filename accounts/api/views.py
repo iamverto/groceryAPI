@@ -13,6 +13,9 @@ from rest_framework.response import Response
 from rest_framework import status
 from accounts.models import User
 
+from rest_framework.generics import ListAPIView
+from rest_framework.mixins import ListModelMixin
+
 from address.api.serializers import AddressSerializer
 
 from rest_framework_jwt.settings import api_settings
@@ -172,3 +175,10 @@ def delete_address(request, id):
         return Response(status=status.HTTP_404_NOT_FOUND)
     address.delete()
     return Response(status=status.HTTP_200_OK)
+
+
+class UserList(ListAPIView, ListModelMixin):
+    serializer_class = UserSerializer
+    def get_queryset(self):
+        queryset = User.objects.all()
+        return queryset
