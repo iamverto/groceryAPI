@@ -3,10 +3,9 @@ from order.models import Order, OrderItem
 from address.api.serializers import AddressSerializer
 from accounts.api.serializers import UserSerializer
 from store.api.serializers import StoreSerializer
-
+from driver.api.serializers import DriverSerializer
 
 class OrderItemSerializer(ModelSerializer):
-
     product_title = SerializerMethodField(read_only=True)
     product_price = SerializerMethodField(read_only=True)
     product_featured_image = SerializerMethodField(read_only=True)
@@ -36,11 +35,15 @@ class OrderItemSerializer(ModelSerializer):
 
 
 class OrderSerializer(ModelSerializer):
+    driver = DriverSerializer(read_only=True)
+    user = UserSerializer(read_only=True)
     address = AddressSerializer(read_only=True)
     items = OrderItemSerializer(many=True, read_only=True)
+
 
     # shipping details
 
     class Meta:
         model = Order
-        fields = ('id','user', 'store', 'order_date', 'amount', 'address', 'items', 'status')
+        fields = ('id','user', 'store', 'order_date', 'amount', 'address', 'items','driver', 'status')
+
