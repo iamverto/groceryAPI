@@ -39,7 +39,6 @@ class ProductListCreateAPIView(ListCreateAPIView, ListModelMixin, CreateModelMix
     # only for admin
     def post(self, request, *args, **kwargs):
         if self.request.user.is_superuser:
-            print(request.data)
             return self.create(request)
         return Response(status=status.HTTP_401_UNAUTHORIZED)
 
@@ -67,6 +66,16 @@ class ProductRetrieveUpdateDeleteAPIView(RetrieveUpdateDestroyAPIView, RetrieveM
         if self.request.user.is_superuser:
             return self.destroy(self, request)
         return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+    def perform_update(self, serializer):
+        instance = self.get_object()
+        if self.request.data.get('categories', None):
+            categories = self.request.data.copy().pop('categories')
+            if categories:
+                instance.categories.clear()
+                for category in categories:
+                    instance.categories.add(category)
+        serializer.save()
 
 
 @api_view(['POST'])

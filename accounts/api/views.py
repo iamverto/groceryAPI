@@ -63,12 +63,14 @@ def login(request):
         # generate OTP
         time_otp = pyotp.TOTP(user.key, interval=900)
         time_otp = time_otp.now()
+        print(time_otp)
         # send sms code
-        client.messages.create(
-            body="Your FuseGrocer verification code is " + time_otp,
-            from_=twilio_phone,
-            to="+91" + user.mobile
-        )
+        # client.messages.create(
+        #     body="Your FuseGrocer verification code is " + time_otp,
+        #     from_=twilio_phone,
+        #     to="+91" + user.mobile
+        # )
+        return Response({}, status=status.HTTP_200_OK)
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -97,6 +99,7 @@ def verify_otp(request):
                 return Response(data, status=status.HTTP_200_OK)
             except Exception as e:
                 raise e
+
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
