@@ -17,6 +17,12 @@ class User(AbstractUser):
     def save(self, *args, **kwargs):
         super(User, self).save(*args, **kwargs)
 
+    def is_driver(self):
+        return self.driver
+
+    def is_store(self):
+        return self.store
+
 
 def generate_key():
     """ User otp key generator """

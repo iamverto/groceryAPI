@@ -11,12 +11,13 @@ GROUPING ORDER ITEMS BY STORE AND KEEPING IT SEPARATE ORDER
 
 class Order(models.Model):
     STATUS_CHOICES = (
-        ('PENDING','Pending'),
-        ('SUCCESS','Success'),
-        ('ACCEPTED','Accepted'),
-        ('SHIPPED','Shipped'),
-        ('DELIVERED','Delivered'),
-        ('DECLINED','Declined'),
+        ('PENDING','Pending'), # pending state
+        ('SUCCESS','Success'), # order success
+        ('ACCEPTED','Accepted'), # order accepted by store
+        ('READY','Ready'), # order accepted by driver
+        ('SHIPPED','Shipped'), # order picked by driver
+        ('DELIVERED','Delivered'), # delivered
+        ('DECLINED','Declined'), # declined by store, driver
     )
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     store = models.ForeignKey(Store, on_delete=models.PROTECT)
