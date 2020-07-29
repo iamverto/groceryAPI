@@ -50,10 +50,27 @@ class Cart(models.Model):
         items.delete()
         return orders.update(status="SUCCESS")
 
+    def add_to_cart(self, product):
+        try:
+            cart_item = CartItem.objects.get(cart=self, product=product)
+        except CartItem.MultipleObjectsReturned:
+            cart_items = CartItem.objects.filter(cart=self, product=product)
+            cart_items.delete()
+            cart_item = None
+        except CartItem.DoesNotExist:
+            cart_item = None
+        if cart_item is not None:
+            cart_item.quantity += 1
+            cart_item.save()
+        else:
+            cart_item = CartItem(cart=self, product=product)
+            cart_item.save()
+        return cart_item
+
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=0)
+    quantity = models.IntegerField(default=1)
 
     def save(self, *args, **kwargs):
         if self.quantity == 0:

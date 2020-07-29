@@ -13,6 +13,9 @@ from rest_framework.response import Response
 from rest_framework import status
 from accounts.models import User
 
+from jwt.exceptions import InvalidSignatureError
+
+
 from rest_framework.generics import ListAPIView
 from rest_framework.mixins import ListModelMixin
 
@@ -40,17 +43,28 @@ def get_user(token):
     return jwt_get_user_from_token(token)
 
 
-# login
-# create user if not available + send OTP
-@api_view(['get'])
-def user(request):
-    user = request.user
-    token = get_token(user)
-    serializer = UserSerializer(user, context={'request':request})
-    data = serializer.data
-    data['token'] = token
-    return Response(data, status=status.HTTP_200_OK)
 
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def user(request):
+    token = request.data.get('token', None)
+    if token:
+        try:
+            user_data = get_user(token)
+        except InvalidSignatureError:
+            print('error')
+            user_data = None
+            # re-login
+            return Response({'status':False,'err':'INVALID_TOKEN'}, status.HTTP_200_OK)
+        try:
+            user = User.objects.get(id=user_data['user_id'])
+        except User.DoesNotExist:
+            return Response({'status': False, 'err': 'INVALID_TOKEN'}, status.HTTP_200_OK)
+        serializer = UserSerializer(user, context={'request':request})
+        data = serializer.data
+        data['token'] = get_token(user)
+        return Response(data, status=status.HTTP_200_OK)
+    return Response({'status':False,'err': 'INVALID_TOKEN'}, status.HTTP_200_OK)
 
 @api_view(['post'])
 @permission_classes([AllowAny])

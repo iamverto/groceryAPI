@@ -10,12 +10,13 @@ class CartItemSerializer(ModelSerializer):
     product_featured_image = SerializerMethodField(read_only=True)
     product_store_name = SerializerMethodField(read_only=True)
     is_product_active = SerializerMethodField(read_only=True)
+    store=SerializerMethodField(read_only=True)
 
     class Meta:
         model = CartItem
         fields = ('id', 'cart', 'product', 'quantity', 'product_title',
                   'product_price', 'product_featured_image',
-                  'product_store_name', 'is_product_active')
+                  'product_store_name', 'is_product_active','store')
 
     def get_product_title(self, object):
         return object.product.title
@@ -35,3 +36,6 @@ class CartItemSerializer(ModelSerializer):
 
     def get_is_product_active(self, object):
         return object.product.is_active
+
+    def get_store(self, object):
+        return object.product.store.id
