@@ -30,6 +30,17 @@ def add_to_cart(request):
     serializer = CartItemSerializer(ci, context={'request':request})
     return Response(serializer.data, status.HTTP_201_CREATED)
 
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def update_cart_item(request):
+    cart_item_id = request.data.get('cart_item', None)
+    quantity = request.data.get('quantity', None)
+    cart_item = get_object_or_404(CartItem, id=cart_item_id)
+    cart_item.quantity = quantity
+    cart_item.save()
+    serializer = CartItemSerializer(cart_item, context={'request':request})
+    return Response(serializer.data, status.HTTP_200_OK)
+
 """
 UPDATE CartItem quantity
 DELETE CartItem
