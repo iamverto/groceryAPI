@@ -17,7 +17,7 @@ class Cart(models.Model):
         2. check if address is right
         3. delete previous pending orders
         4. then => create order and order_items
-        todo delete cart items
+        5. delete cart items
         """
         items = self.items.all()
         for item in items:
@@ -28,10 +28,12 @@ class Cart(models.Model):
         try:
             address = self.user.addresses.get(id=address_id)
         except Address.DoesNotExist:
+            print('not an address!')
             return False
         # DELETING ANY PENDING ORDERS
+        print('dd')
         orders = Order.objects.filter(user=self.user, status="PENDING").delete()
-
+        print(items)
         # PLACING ORDER and GROUPING
         for item in items:
             store = item.product.store

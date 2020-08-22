@@ -80,6 +80,7 @@ def place_order(request):
     if address_id:
         cart = request.user.cart
         orders = cart.place_order(address_id)
+        print(orders)
         if orders:
             return Response(status.HTTP_201_CREATED)
         else:

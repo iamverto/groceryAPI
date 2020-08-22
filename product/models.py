@@ -32,14 +32,13 @@ class Product(models.Model):
         return None
 
 
-
-
-
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE)
     pic = models.ImageField(upload_to='product/')
     is_featured = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.product.title
 
 
 @receiver(post_delete, sender=ProductImage)
